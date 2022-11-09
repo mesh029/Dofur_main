@@ -1,4 +1,4 @@
-Web application for WCDI to help acquire more donors and recipients for the organization inturn improving significantly both its fund resources and reach capability.
+Web application for WCDI to help acquire more donors and recipients for the organization inturn improving significantly both its funding resources and reach capability.
 
 Created with:
 
