@@ -1,1 +1,1 @@
-https://www.creative-tim.com/learning-lab/react/input/soft-ui-dashboard/
+Web application for WCDI to help acquire donors hence more funds and more recipients.
