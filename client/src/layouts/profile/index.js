@@ -99,7 +99,7 @@ function Overview() {
           <SoftBox pt={2} px={2}>
             <SoftBox mb={0.5}>
               <SoftTypography variant="h6" fontWeight="medium">
-                Projects
+                Donations
               </SoftTypography>
             </SoftBox>
             <SoftBox mb={1}>

@@ -46,15 +46,32 @@ import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 
 //My imports
-import { useLocation } from "react-router";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
   const [recipients, setRecipients] = useState([]);
-  const { useEffect, search } = useLocation();
+  const [fundsTotal, setFundTotal] = useState({})
 
+
+
+
+  useEffect(()=>{
+
+    const fetchFundsTotal = async () => {
+      const res = await axios.get(`http://localhost:5000/funds/`);
+      setFundTotal(res.data);
+    };
+
+    fetchFundsTotal()
+
+    console.log("funds total", fundsTotal)
+
+
+  }, [])
 
 
   return (
@@ -63,7 +80,7 @@ function Dashboard() {
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Grid container>
-            <Carousel />
+            <Carousel fundsi = {fundsTotal.subTotal}/>
           </Grid>
         </SoftBox>
         <SoftBox mb={3}>

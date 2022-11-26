@@ -47,54 +47,45 @@ function Tables() {
 
               <SoftTypography variant="h6">Who are we who are we who are we</SoftTypography>
 
-
-              <SoftBox mt={2}>
-          <SoftButton
-            component="a"
-            href="https://creative-tim.com/product/soft-ui-dashboard-pro-react"
-            target="_blank"
-            rel="noreferrer"
-            variant="gradient"
-            color='info'
-            fullWidth
-          >
-            Donate
-          </SoftButton>
-        </SoftBox>
-
         <SoftBox mt={2}>
           <SoftButton
             component="a"
-            href="https://creative-tim.com/product/soft-ui-dashboard-pro-react"
-            target="_blank"
+            href="/authentication/sign-up"
             rel="noreferrer"
             variant="gradient"
             color='info'
             fullWidth
           >
-            Become a recipient
+              {/*target="_blank" property for softbutton that opens link in new page*/}
+
+            Become a recipient or donate today
           </SoftButton>
         </SoftBox>
             </SoftBox>
           </Card>
         </SoftBox>
-        <Card>
-          <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-            <SoftTypography variant="h6">Projects table</SoftTypography>
-          </SoftBox>
-          <SoftBox
-            sx={{
-              "& .MuiTableRow-root:not(:last-child)": {
-                "& td": {
-                  borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                    `${borderWidth[1]} solid ${borderColor}`,
-                },
-              },
-            }}
-          >
-            <Table columns={prCols} rows={prRows} />
-          </SoftBox>
-        </Card>
+        {/*
+
+<Card>
+<SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+  <SoftTypography variant="h6">Projects table</SoftTypography>
+</SoftBox>
+<SoftBox
+  sx={{
+    "& .MuiTableRow-root:not(:last-child)": {
+      "& td": {
+        borderBottom: ({ borders: { borderWidth, borderColor } }) =>
+          `${borderWidth[1]} solid ${borderColor}`,
+      },
+    },
+  }}
+>
+  <Table columns={prCols} rows={prRows} />
+</SoftBox>
+</Card>
+
+*/}
+
       </SoftBox>
       <Footer />
     </DashboardLayout>

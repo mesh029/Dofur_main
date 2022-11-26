@@ -33,7 +33,11 @@ router.post("/recipient", async (req, res) => {
         recipientFundId: newFunds._id,
         schoolAddress: req.body.schoolAddress,
         schoolCity: req.body.schoolCity,
-        school: req.body.school
+        school: req.body.school,
+        dob: req.body.dob,
+        gender: req.body.gender,
+        userClass: req.body.userClass
+
     })
 
     const recipient = await newRecipient.save()

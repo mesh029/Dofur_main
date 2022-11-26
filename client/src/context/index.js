@@ -18,7 +18,7 @@ Coded by www.creative-tim.com
   you can customize the states for the different components here.
 */
 
-import { createContext, useContext, useReducer, useMemo } from "react";
+import { createContext, useContext, useReducer, useMemo, useEffect } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -56,11 +56,59 @@ function reducer(state, action) {
     case "LAYOUT": {
       return { ...state, layout: action.value };
     }
+    case "LOGIN_START":{
+      return {
+        user: null,
+        isFetching: true,
+        error: false,
+      };
+    }
+     
+      case "LOGIN_SUCCESS":
+        return {
+          user: action.payload,
+          isFetching: false,
+          error: false,
+        };
+      case "LOGIN_FAILURE":
+        return {
+          user: null,
+          isFetching: false,
+          error: true,
+        };
+        case "UPDATE_START":
+          return {
+            ...state,
+            isFetching:true
+          };
+        case "UPDATE_SUCCESS":
+          return {
+            user: action.payload,
+            isFetching: false,
+            error: false,
+          };
+        case "UPDATE_FAILURE":
+          return {
+            user: state.user,
+            isFetching: false,
+            error: true,
+          };
+      case "LOGOUT":{
+        return {
+          user: null,
+          isFetching: true,
+          error: false,
+        };
+
+      }
+      
+  
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
   }
 }
+
 
 // Soft UI Dashboard React context provider
 function SoftUIControllerProvider({ children }) {
@@ -73,14 +121,25 @@ function SoftUIControllerProvider({ children }) {
     openConfigurator: false,
     direction: "ltr",
     layout: "dashboard",
+    user: true,
+    isFetching: false,
+    error: false,
   };
+  
+  
 
   const [controller, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(controller.user));
+  }, [controller.user]);
+
 
   const value = useMemo(() => [controller, dispatch], [controller, dispatch]);
 
   return <SoftUI.Provider value={value}>{children}</SoftUI.Provider>;
 }
+
 
 // Soft UI Dashboard React custom hook for using context
 function useSoftUIController() {

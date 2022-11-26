@@ -21,7 +21,6 @@ import colors from "assets/theme/base/colors";
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import { ViewCarousel } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
 
@@ -29,20 +28,19 @@ import { useEffect, useState } from "react";
 import ivancik from "assets/images/ivancik.jpg";
 
 
-function WorkWithTheRockets() {
+const WorkWithTheRockets= props => {
 
 
 //carousel
-const { white, text, info, secondary } = colors;
+const {info, secondary } = colors;
 
 const data = ["1", "2", "3", "4"];
 const [currentIndex, setCurrentIndex] = useState(0);
-const [styles, setStyles] = useState("spans2");
 
 
 
 const carouselInfiniteScroll = () => {
-  if (currentIndex == data.length - 1) {
+  if (currentIndex === data.length - 1) {
     return setCurrentIndex(0);
   }
   return setCurrentIndex(currentIndex + 1);
@@ -54,7 +52,6 @@ const carouselInfiniteScroll = () => {
 useEffect(() => {
   const interval = setInterval(() => {
     carouselInfiniteScroll();
-    setStyles("spans2");
   }, 2000);
   //clean up function
   return () => clearInterval(interval);
@@ -88,21 +85,21 @@ useEffect(() => {
                var car_text;
                var car_undertext;
      
-               if (item == 1) {
-                 car_text = "WCDIgggg";
-                 car_undertext =
+               if (index === 0) {
+                 car_text = "mello wmellow"
+                 car_undertext = 
                    "A charitable organization driven by the sole goal to try enable every child attends school and does so without struggle";
-               } else if (item == 2) {
+               } else if (index === 1) {
                  car_text = "DOFUR";
                  car_undertext =
                    "Hello world hello world hello world hello world hello world hello world";
-               } else if(item == 3){
+               } else if(index === 2){
                 car_text = "WORLD BANK";
                 car_undertext =
                   "A world without peace is no world";
                } 
                
-               else if (item == 4){
+               else if (index === 3){
                  car_text = "MANGAS";
                  car_undertext =
                    "Everyone misses Takeoff";
@@ -184,7 +181,7 @@ useEffect(() => {
 
 {data.map((item, index) => {
   const spans = {width: '25px', height: '25px', borderRadius: "50%", backgroundColor: secondary.main, display: "inline-block", margin:"10px"}
-  const spans2 = {width: '25px', height: '25px', borderRadius: "50%", backgroundColor: info.focus, display: "inline-block", margin:"10px"}
+  const spans2 = {width: '25px', height: '25px', borderRadius: "50%", backgroundColor: info.focus, display: "inline-block", margin:"10px", transition: "all 2s ease"}
 
           return (
             <span

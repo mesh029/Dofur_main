@@ -47,10 +47,6 @@ const RecipientSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    confirmPassword:{
-        type: String,
-        required: false
-    },
     school:{
         type: String,
         required: false
@@ -60,12 +56,22 @@ const RecipientSchema = new mongoose.Schema({
         required: false
     },
     schoolCity:{
+        type: String,
+        required: false
 
     },
     userClass:{
         type: String,
         required: false
     },
+    gender:{
+        type: Boolean,
+        required: false
+    },
+    dob:{
+        type: String,
+        required: false
+    }
 
 
 }, {

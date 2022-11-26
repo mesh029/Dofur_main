@@ -19,7 +19,8 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+
 
 
 // @mui material components
@@ -70,14 +71,14 @@ function DonorDetails({ handleStep, values, handleChange, handleSubmit }) {
     </SoftBox>
       <SoftBox component="form" role="form">
         <SoftBox mb={2}>
-          <SoftInput type="name"  placeholder="Full Names" onChange={handleChange(24)} />
+          <SoftInput type="name"  placeholder="Full Names" onChange={handleChange(25)} />
         </SoftBox>
         <SoftBox mb={2}>
-          <SoftInput type="email" placeholder="Email Address" onChange={handleChange(25)}/>
+          <SoftInput type="email" placeholder="Email Address" onChange={handleChange(26)}/>
         </SoftBox>
 
         <SoftBox mb={2}>
-          <SoftInput type="email" placeholder="Password" onChange={handleChange(26)}/>
+          <SoftInput type="email" placeholder="Password" onChange={handleChange(27)}/>
         </SoftBox>
 
         <SoftBox mb={2}>
@@ -93,7 +94,7 @@ function DonorDetails({ handleStep, values, handleChange, handleSubmit }) {
           </SoftBox>
 
           <SoftBox textAlign="right" ml="auto" mr={0}>
-          <SoftButton variant="gradient" color="dark" onClick={handleSubmit}>
+          <SoftButton variant="gradient" color="dark" href="/donate">
             Submit
           </SoftButton>
 

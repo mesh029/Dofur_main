@@ -44,6 +44,7 @@ import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import Donate from "layouts/donate";
 
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
@@ -55,98 +56,94 @@ import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 
-const routes = [
-  {
-    type: "collapse",
-    name: "Home",
-    key: "dashboard",
-    route: "/dashboard",
-    icon: <Shop size="12px" />,
-    component: <Dashboard />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "About",
-    key: "tables",
-    route: "/tables",
-    icon: <Office size="12px" />,
-    component: <Tables />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Communities",
-    key: "billing",
-    route: "/billing",
-    icon: <CreditCard size="12px" />,
-    component: <Tables />,
-    noCollapse: true,
-  },
- 
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: <CustomerSupport size="12px" />,
-    component: <Profile />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    route: "/authentication/sign-in",
-    icon: <Document size="12px" />,
-    component: <SignIn />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    route: "/authentication/sign-up",
-    icon: <SpaceShip size="12px" />,
-    component: <SignUp />,
-    noCollapse: true,
-  },
-];
 
+  const routes2 = [
+    {
+      type: "collapse",
+      name: "Home",
+      key: "dashboard",
+      route: "/dashboard",
+      icon: <Shop size="12px" />,
+      component: <Dashboard />,
+      noCollapse: true,
+    },
+    {
+      type: "collapse",
+      name: "About",
+      key: "tables",
+      route: "/tables",
+      icon: <Office size="12px" />,
+      component: <Tables />,
+      noCollapse: true,
+    },
+    {
+      type: "collapse",
+      name: "Communities",
+      key: "billing",
+      route: "/billing",
+      icon: <CreditCard size="12px" />,
+      component: <Tables />,
+      noCollapse: true,
+    },
+   
+    {
+      type: "collapse",
+      name: "Profile",
+      key: "profile",
+      route: "/profile",
+      icon: <CustomerSupport size="12px" />,
+      component: <Profile />,
+      noCollapse: true,
+    },
+    {
+      type: "collapse",
+      name: "Donate",
+      key: "donate",
+      route: "/donate",
+      icon: <SpaceShip size="12px" />,
+      component: <Donate />,
+      noCollapse: true,
+    },
 
-/* 
+  ];
+  
+  
+  /* 
+  
+    {
+      type: "collapse",
+      name: "Communities",
+      key: "billing",
+      route: "/billing",
+      icon: <CreditCard size="12px" />,
+      component: <Billing />,
+      noCollapse: true,
+    },
+  
+   {
+      type: "collapse",
+      name: "Virtual Reality",
+      key: "virtual-reality",
+      route: "/virtual-reality",
+      icon: <Cube size="12px" />,
+      component: <VirtualReality />,
+      noCollapse: true,
+    },
+    {
+      type: "collapse",
+      name: "RTL",
+      key: "rtl",
+      route: "/rtl",
+      icon: <Settings size="12px" />,
+      component: <RTL />,
+      noCollapse: true,
+    },
+    { type: "title", title: "Account Pages", key: "account-pages" },
+  
+  
+  */
+  
 
-  {
-    type: "collapse",
-    name: "Communities",
-    key: "billing",
-    route: "/billing",
-    icon: <CreditCard size="12px" />,
-    component: <Billing />,
-    noCollapse: true,
-  },
+   
 
- {
-    type: "collapse",
-    name: "Virtual Reality",
-    key: "virtual-reality",
-    route: "/virtual-reality",
-    icon: <Cube size="12px" />,
-    component: <VirtualReality />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    route: "/rtl",
-    icon: <Settings size="12px" />,
-    component: <RTL />,
-    noCollapse: true,
-  },
-  { type: "title", title: "Account Pages", key: "account-pages" },
-
-
-*/
-
-export default routes;
+export default routes2;

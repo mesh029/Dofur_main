@@ -9,7 +9,8 @@ const createError = require('http-errors');
 
 //routes
 const authRoute = require("./routes/auth");
-
+const recipientRoute = require("./routes/recipients")
+const fundsRoute = require('./routes/funds')
 
 
 
@@ -33,9 +34,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(cors());
 app.use("/auth", authRoute)
+app.use("/recipients", recipientRoute)
+app.use("/funds", fundsRoute)
 
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port)
 })

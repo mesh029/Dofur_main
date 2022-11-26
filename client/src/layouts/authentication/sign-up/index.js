@@ -49,6 +49,7 @@ import AdminDetails from "./components/adminDetails";
 import DonorDetails from "./components/donorDetails";
 // Images
 import curved6 from "assets/images/curved-images/curved14.jpg";
+import { Input } from "@mui/material";
 
 
 
@@ -59,37 +60,10 @@ function SignUp() {
 
 
 
-  const [formData, setFormData] = useState([
-    'username', 
-    'userEmail',
-    'building',
-    'city',
-    'state',
-    'phone',
-    'school',
-    'schoolAddress',
-    'schoolCity',
-    'userClass',
-    'description',
-    40000,
-    0,
-    'gname',
-    'gEmail',
-    'gBuilding',
-    'gCity',
-    'gState',
-    'gPhone',
-    'password',
-    'confirmPassword',
-    'admin username',
-    'admin email',
-    'admin position',
-    'admin password',
-    'donor username',
-    'donor email',
-    'donor password'
+  const [formData, setFormData] = useState([])
 
-  ])
+
+  
 
   const username = formData[0]
   const email = formData[1]
@@ -104,25 +78,27 @@ function SignUp() {
   const description = formData[10]
   const funds = formData[11]
   var currentFunds = 0
-  const gname = formData[12]
-  const gEmail = formData[13]
-  const gBuilding = formData[14]
-  const gCity = formData[15]
-  const gState =formData[16]
-  const gPhone = formData[17]
-  const password = formData[18]
-  const confirmPassword = formData[19]
-  const ausername = formData[20]
-  const aemail = formData[21]
-  const aposition = formData[22] 
-  const apassword = formData[23]
-  const dusername = formData[24]
-  const demail = formData[25]
-  const dpassword = formData[26]
+  const gname = formData[13]
+  const gEmail = formData[14]
+  const gBuilding = formData[15]
+  const gCity = formData[16]
+  const gState =formData[17]
+  const gPhone = formData[18]
+  const password = formData[19]
+  const confirmPassword = formData[20]
+  const ausername = formData[21]
+  const aemail = formData[22]
+  const aposition = formData[23] 
+  const apassword = formData[24]
+  const dusername = formData[25]
+  const demail = formData[26]
+  const dpassword = formData[27]
+  const dob = formData[28]
+  const gender = formData[29]
 
 
 
-  const values = {username, email, building, city, state, phone, school, schoolAddress, userClass, description, funds,currentFunds, gname, gEmail, gBuilding, gCity, gState, gPhone }
+  const values = {username, email, building, city, state, phone, school, schoolAddress, userClass, description, funds,currentFunds, gname, gEmail, gBuilding, gCity, gState, gPhone, gender, dob }
   
 
 
@@ -194,7 +170,7 @@ function SignUp() {
         city,
         state
       },
-      gadress:{
+      gaddress:{
         gEmail,
         gCity,
         gPhone,
@@ -205,11 +181,13 @@ function SignUp() {
       currentFunds,
       password,
       confirmPassword,
-      schoolCity
+      schoolCity,
+      dob,
+      gender
     }
 
     try {
-       await axios.post("http://localhost:4000/auth/recipient", newDetails);
+       await axios.post("http://localhost:5000/auth/recipient", newDetails);
        
       console.log("successful!", newDetails)
 
@@ -237,6 +215,45 @@ function SignUp() {
 
     }
 
+    const setRecDate = input => async(e)=>{
+
+      let newArr =[...formData]
+
+
+      //heres what we will be storing to the database:: newDate
+      var newDate = input.toString()
+
+
+
+      var Dodo = new Date(newDate)
+
+      //this converts the date and time from the date picker to the actual time and does away with the time error
+      var dString =new Date( Dodo.getTime() + Math.abs(Dodo.getTimezoneOffset()*60000) ).toString()
+
+      
+
+
+      //Calculating age from year of birth
+
+      var month_diff = Date.now()-Dodo.getTime()
+      var age_diff = new Date(month_diff)
+      var year = age_diff.getUTCFullYear()
+      var age = Math.abs(age_diff-1970);  
+
+
+      //Here we take it to the database
+      newArr[28]= newDate
+
+      setFormData(newArr)
+      console.log(newArr, dString, age_diff.toString(), month_diff.toString(), year, age)
+      
+      console.log(  new Date( Dodo.getTime() + Math.abs(Dodo.getTimezoneOffset()*60000) )  );
+
+  
+
+    }
+
+
   
     const handleStep = input => async(e)=>{
       setStep(input)
@@ -256,6 +273,8 @@ function SignUp() {
             handleChange={handleChange}
             values = {values}
             handleStep={handleStep}
+            setRecDate={setRecDate}
+
             />
             </BasicLayout>
         )
