@@ -53,7 +53,6 @@ import { useState, useEffect } from "react";
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
-  const [recipients, setRecipients] = useState([]);
   const [fundsTotal, setFundTotal] = useState({})
 
 
@@ -66,12 +65,13 @@ function Dashboard() {
       setFundTotal(res.data);
     };
 
-    fetchFundsTotal()
 
-    console.log("funds total", fundsTotal)
+
+    fetchFundsTotal()
 
 
   }, [])
+
 
 
   return (
@@ -80,7 +80,7 @@ function Dashboard() {
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Grid container>
-            <Carousel fundsi = {fundsTotal.subTotal}/>
+            <Carousel totalValue = {fundsTotal.subTotal}/>
           </Grid>
         </SoftBox>
         <SoftBox mb={3}>

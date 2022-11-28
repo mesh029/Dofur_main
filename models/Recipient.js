@@ -71,6 +71,15 @@ const RecipientSchema = new mongoose.Schema({
     dob:{
         type: String,
         required: false
+    },
+    label:{
+        type: String,
+        default: "recipient"
+
+    },
+    verified:{
+        type: Boolean,
+        default: false
     }
 
 

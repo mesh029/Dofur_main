@@ -89,6 +89,7 @@ router.post("/admin", async (req, res) => {
     })
 
     const admin = await newAdmin.save()
+    res.status(200).json(admin)
 
   } catch (err) {
     res.status(500).json(err);
@@ -110,6 +111,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+
+
+//LOGIN
+router.post("/login", async (req, res) => {
+  try {
+
+
+
+
+
+
+    const user = await Recipient.findOne({ username: req.body.username }) || await Donor.findOne({ dusername: req.body.username }) || await Admin.findOne({ ausername: req.body.username })
+    !user && res.status(400).json("Wrong credentials!");
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err)
+  }
+});
 
 
 module.exports = router;

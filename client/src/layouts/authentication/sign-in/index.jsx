@@ -14,9 +14,13 @@ Coded by www.creative-tim.com
 */
 
 import { useState } from "react";
+import { Context } from "context/Context";
+import { useContext, useRef } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Switch from "@mui/material/Switch";
@@ -34,17 +38,49 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 import { LineAxisOutlined } from "@mui/icons-material";
 import axios from "axios";
-const slugify = require('slugify')
+
+
+//mine
+
+// Soft UI Dashboard React context
+import {
+  useSoftUIController,
+  setTransparentNavbar,
+  setMiniSidenav,
+  setOpenConfigurator,
+} from "context";
+
+
 
 
 function SignIn() {
+  const userRef = useRef()
+  const passwordRef = useRef()
   const [rememberMe, setRememberMe] = useState(true);
   const [username, setUserName] = useState("");
   const [desc, setDesc] = useState("");
   const [address, setAddress] = useState("");
+  const navigate = useNavigate()
+
+
+
+  const [controller, dispatch] = useSoftUIController();
+  const { user } = controller;
+
+  const isFeto = false
+
+  const [error, setError] = useState(false);
+
+  const handleLogout = () =>{
+
+    dispatch({ type: "LOGIN_START" });
+
+    console.log( user)
+  }
+
+
 
   var cors = require('cors')
-
 
 
 
@@ -52,22 +88,28 @@ function SignIn() {
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
+    setError(false)
 
-    const newRecipient ={
-      username,
-      desc,
-      address,
-      slug: slugify(username, {lower: true, strict: true})
+
+    try {
+      const res = await axios.post("http://localhost:5000/auth/login",{
+        username: address,
+      });
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+
+      
+      console.log("payload",user)
+
+      navigate("/profile",{state:user})
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE" });
+
+      setError(true)
+      console.log(err)
+
     }
 
-    try{
-      const res = await axios.post("http://localhost:4000/recipients", newRecipient)
-      console.log("new recipient",newRecipient)
-    }
-    catch(err){
-      console.log("database err", err)
-      console.log("username", username)
-    }
+    console.log(user)
   }
 
 
@@ -77,14 +119,14 @@ function SignIn() {
       description="Enter your email and password to sign in"
       image={curved9}
     >
-      <SoftBox component="form" role="form" onSubmit={handleSubmit()}>
+      <SoftBox component="form" role="form" onSubmit={handleSubmit}>
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
             <SoftTypography component="label" variant="caption" fontWeight="bold">
               Email
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="email" placeholder="Email" onChange={e=>setAddress(e.target.value)}/>
+          <SoftInput placeholder="Email" onChange={e=>setAddress(e.target.value)} ref={userRef}/>
         </SoftBox>
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
@@ -92,7 +134,7 @@ function SignIn() {
               Password
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="text" placeholder="Password" autoFocus = {true} onChange={e=>setUserName(e.target.value)} />
+          <SoftInput type="text" placeholder="Password" autoFocus = {true} onChange={e=>setUserName(e.target.value)} ref={passwordRef} />
         </SoftBox>
         <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -106,14 +148,14 @@ function SignIn() {
           </SoftTypography>
         </SoftBox>
         <SoftBox mt={4} mb={1}>
-          <SoftButton variant="gradient" color="info" fullWidth type= "submit" role ="submit">
+          <SoftButton variant="gradient" color="info" fullWidth type= "submit" role ="submit" disabled={isFeto}>
           <SoftTypography
             variant="button"
             fontWeight="regular"
             onClick={handleSubmit}
             sx={{ cursor: "pointer", userSelect: "none" }}
           >
-            &nbsp;&nbsp;Submit
+            &nbsp;&nbsp;Submi
           </SoftTypography>
             
           </SoftButton>

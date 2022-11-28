@@ -14,6 +14,11 @@ const DonorSchema = new mongoose.Schema({
         type: String,
         required: false
 
+    },
+    label:{
+        type: String,
+        default: "donor"
+
     }
 }, {timestamps: true})
 

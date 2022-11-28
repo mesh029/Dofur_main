@@ -19,6 +19,11 @@ const AdminSchema = new mongoose.Schema({
     apassword:{
         type:String,
         required: false
+    },
+    label:{
+        type: String,
+        default: "admin"
+
     }
 
 }, {timestamps: true})

@@ -94,7 +94,7 @@ function DonorDetails({ handleStep, values, handleChange, handleSubmit }) {
           </SoftBox>
 
           <SoftBox textAlign="right" ml="auto" mr={0}>
-          <SoftButton variant="gradient" color="dark" href="/donate">
+          <SoftButton variant="gradient" color="dark" onClick={handleSubmit}>
             Submit
           </SoftButton>
 

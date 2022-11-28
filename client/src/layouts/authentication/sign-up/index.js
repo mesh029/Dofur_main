@@ -119,7 +119,7 @@ function SignUp() {
     }
 
     try {
-      await axios.post("http://localhost:4000/auth/admin", newDetails);
+      await axios.post("http://localhost:5000/auth/admin", newDetails);
       
      console.log("successful!", newDetails)
      console.log(formData)
@@ -140,7 +140,7 @@ function SignUp() {
     }
 
     try {
-      await axios.post("http://localhost:4000/auth/donor", newDetails);
+      await axios.post("http://localhost:5000/auth/donor", newDetails);
       
      console.log("successful!", newDetails)
      console.log(formData)
@@ -196,6 +196,10 @@ function SignUp() {
       console.log(err)
     }
   };
+
+
+
+
   
   const handleChange = input =>async(e)=>{
  

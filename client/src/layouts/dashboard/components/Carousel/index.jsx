@@ -86,9 +86,9 @@ useEffect(() => {
                var car_undertext;
      
                if (index === 0) {
-                 car_text = "mello wmellow"
+                 car_text = `${props.totalValue}`
                  car_undertext = 
-                   "A charitable organization driven by the sole goal to try enable every child attends school and does so without struggle";
+                   "Total funds available in our freakin bank account";
                } else if (index === 1) {
                  car_text = "DOFUR";
                  car_undertext =
