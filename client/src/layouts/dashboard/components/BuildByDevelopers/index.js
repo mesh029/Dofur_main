@@ -35,20 +35,20 @@ function BuildByDevelopers() {
             <SoftBox display="flex" flexDirection="column" height="100%">
               <SoftBox pt={1} mb={0.5}>
                 <SoftTypography variant="body2" color="text" fontWeight="medium">
-                  Build by developers
+                  For the love of togetherness
                 </SoftTypography>
               </SoftBox>
               <SoftTypography variant="h5" fontWeight="bold" gutterBottom>
-                WCDI
+                WCDI:
               </SoftTypography>
               <SoftBox mb={6}>
                 <SoftTypography variant="body2" color="text">
-                  WCDI in partnership with several charitable agencies is after ensuring no child is a victim of circumstance when it comes to missing out on school. Dofur ensures its far and wide reach!
+                  in partnership with several charitable agencies is after ensuring no child is a victim of circumstance when it comes to missing out on school. Dofur ensures its far and wide reach!
                 </SoftTypography>
               </SoftBox>
               <SoftTypography
                 component="a"
-                href="/tables"
+                href="/about"
                 variant="button"
                 color="text"
                 fontWeight="medium"
@@ -86,14 +86,21 @@ function BuildByDevelopers() {
               variant="gradient"
             >
               <SoftBox
+              borderRadius="lg"
                 component="img"
-                src={wavesWhite}
-                alt="waves"
                 display="block"
                 position="absolute"
                 left={0}
                 width="100%"
                 height="100%"
+                sx={{
+                  backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
+                    `${linearGradient(
+                      rgba(gradients.dark.main, 0.4),
+                      rgba(gradients.dark.state, 0.4)
+                    )}, url(https://dunderid.sirv.com/child_at_library.jpg)`,
+                  backgroundSize: "cover", backgroundRepeat: "no-repeat",
+                }}
               />
               <SoftBox component="img" src={rocketWhite} alt="rocket" width="100%" pt={3} />
             </SoftBox>

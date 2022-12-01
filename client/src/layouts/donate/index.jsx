@@ -206,30 +206,6 @@ function Donate() {
       <DashboardNavbar />
       <SoftBox py={3}>
         <SoftBox mb={3}>
-          <Card>
-            <SoftBox  alignItems="center" p={3}>
-              <SoftTypography variant="h4" >General donation</SoftTypography>
-
-              <SoftTypography variant="h6">Who are we who are we who are we</SoftTypography>
-
-        <SoftBox mt={2}>
-          <SoftButton
-            component="a"
-            href="/authentication/sign-up"
-            rel="noreferrer"
-            variant="gradient"
-            color='info'
-            fullWidth
-          >
-              {/*target="_blank" property for softbutton that opens link in new page*/}
-
-            Make general donation
-          </SoftButton>
-        </SoftBox>
-            </SoftBox>
-          </Card>
-
-
           <SoftBox
                     my={2}
           >
@@ -237,11 +213,9 @@ function Donate() {
           <Card
           marginTop="20px"
           >
-         <SoftTypography variant= "h4" my={1} mx={4}>Browse recipients</SoftTypography>
+         <SoftTypography variant= "h4" my={1} mx={4}>Available recipients:</SoftTypography>
 
-            
-          <SoftTypography variant= "h6" my={1} mx={4}>Filters here</SoftTypography>
-
+          
 
           <SoftBox
 

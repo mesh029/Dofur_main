@@ -70,10 +70,10 @@ function AdminDetails({values, handleChange, handleStep, handleSubmit }) {
     </SoftBox>
       <SoftBox component="form" role="form">
         <SoftBox mb={2}>
-          <SoftInput type="name"  placeholder="Full Names" onChange={handleChange(20)} />
+          <SoftInput type="name"  placeholder="Full Names" onChange={handleChange(21)} />
         </SoftBox>
         <SoftBox mb={2}>
-          <SoftInput type="email" placeholder="Email Address" onChange={handleChange(21)}/>
+          <SoftInput type="email" placeholder="Email Address" onChange={handleChange(22)}/>
         </SoftBox>
     <SoftBox  >
       <SoftTypography variant="h6" fontWeight="small">
@@ -82,12 +82,12 @@ function AdminDetails({values, handleChange, handleStep, handleSubmit }) {
     </SoftBox>
 
     <SoftBox mb={2}>
-          <SoftInput type="email" placeholder="Position" onChange={handleChange(22)}/>
+          <SoftInput type="email" placeholder="Position" onChange={handleChange(23)}/>
         </SoftBox>
 
 
       <SoftBox mb={2}>
-          <SoftInput type="password" placeholder="Password" onChange={handleChange(23)}/>
+          <SoftInput type="password" placeholder="Password" onChange={handleChange(24)}/>
 
         </SoftBox>
 

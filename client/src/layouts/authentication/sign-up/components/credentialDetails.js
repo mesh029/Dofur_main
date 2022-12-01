@@ -46,7 +46,7 @@ import Separator from "layouts/authentication/components/Separator";
 import Checkbox from "@mui/material/Checkbox";
 
 
-function GuardianDetails({ nextStep, prevStep, values, handleChange, handleSubmit }) {
+function GuardianDetails({ nextStep, prevStep, values, handleChange, handleSubmit, error }) {
     const [agreement, setAgremment] = useState(true);
     const handleSetAgremment = () => setAgremment(!agreement);
 

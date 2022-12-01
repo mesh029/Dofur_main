@@ -73,6 +73,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleLogout = () =>{
     dispatch({type: "LOGOUT"})
     window.localStorage.removeItem('MY_APP_STATE')
+    window.localStorage.removeItem('USER_TYPE')
   }
 
 
@@ -156,17 +157,26 @@ function DashboardNavbar({ absolute, light, isMini }) {
         <SoftBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
           <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
         </SoftBox>
-        {isMini ? null : (
-          <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
+        {
+            /** 
+             * 
+             *           <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
             <SoftBox pr={1}>
               <SoftInput
                 placeholder="Type here..."
                 icon={{ component: "search", direction: "left" }}
               />
             </SoftBox>
+             * 
+            */
+          }
+        {isMini ? null : (
+
+          <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
 
             {user ? (
                             <Link to="/authentication/sign-in">
+
                             <IconButton sx={navbarIconButton} size="small" >
                               <Icon
                                 sx={({ palette: { dark, white } }) => ({
@@ -181,13 +191,32 @@ function DashboardNavbar({ absolute, light, isMini }) {
                                 color={light ? "white" : "dark"}
                                 onClick={handleLogout}
                               >
-                                Sign ino
+                                Sign out
                               </SoftTypography>
                             </IconButton>
-                          </Link>
+                            </Link>
+
             ):(
 
-              <SoftBox></SoftBox>
+              <Link to="/authentication/sign-in">
+              <IconButton sx={navbarIconButton} size="small" >
+                <Icon
+                  sx={({ palette: { dark, white } }) => ({
+                    color: light ? white.main : dark.main,
+                  })}
+                >
+                  account_circle
+                </Icon>
+                <SoftTypography
+                  variant="button"
+                  href="/authentication/sign-in"
+                  fontWeight="medium"
+                  color={light ? "white" : "dark"}
+                >
+                  Sign in
+                </SoftTypography>
+              </IconButton>
+            </Link>
             )}
             <SoftBox color={light ? "white" : "inherit"}>
               <IconButton
@@ -219,7 +248,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
               >
                 <Icon className={light ? "text-white" : "text-dark"}>notifications</Icon>
               </IconButton>
-              {renderMenu()}
             </SoftBox>
           </SoftBox>
         )}

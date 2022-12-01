@@ -62,7 +62,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 const { info, dark, text } = colors;
 
 
-function UserDetails({ handleStep, nextStep, values, handleChange, setRecDate }) {
+function UserDetails({ handleStep, nextStep, values, handleChange, setRecDate, error }) {
     const [agreement, setAgremment] = useState(true);
     const handleSetAgremment = () => setAgremment(!agreement);
     const [selectedValue, setSelectedValue] =useState(true);
@@ -106,18 +106,11 @@ function UserDetails({ handleStep, nextStep, values, handleChange, setRecDate })
   return (
 
     <Card>
-          <SoftBox mt={4} mb={1} px={3} display="flex">
-          <SoftBox >
+        <SoftBox mt={4} mb={1} px={3} width="100%">
+          <SoftBox textAlign="center">
           <SoftButton variant="gradient" color="dark" onClick={handleStep(4)}>
-            Donor
+            Donor Account? Click here
           </SoftButton>
-          </SoftBox>
-
-          <SoftBox textAlign="right" ml="auto" mr={0}>
-          <SoftButton variant="gradient" color="dark" onClick={handleStep(5)}>
-            Admin
-          </SoftButton>
-
           </SoftBox>
         </SoftBox>
 

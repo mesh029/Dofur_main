@@ -42,12 +42,16 @@ import createCache from "@emotion/cache";
 // Soft UI Dashboard React routes
 import routes from "routes";
 import routes2 from "routes2";
+import routes3 from "routes3";
+import routes4 from "routes4";
 
 // Soft UI Dashboard React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
 import brand from "assets/images/logo-ct.png";
+import { Description } from "@mui/icons-material";
+import data from "layouts/dashboard/components/Projects/data";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -55,6 +59,64 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const[description, setDescription] = useState("")
+
+
+  const[userData, setUserData] = useState(user)
+  const[userType, setUserType] = useState("")
+
+
+  useEffect(()=>{
+    const data = window.localStorage.getItem('MY_APP_STATE')
+    if(data !== null) setUserData(JSON.parse(data))
+
+
+  }, [])
+
+
+  useEffect(()=>{
+
+
+    if(userData !== null){
+
+      if(Object.prototype.hasOwnProperty.call(userData, 'dob')){
+        setUserType("recipient")
+      }else if(Object.prototype.hasOwnProperty.call(userData, 'dusername')){
+        setUserType("donor")
+      }else if(Object.prototype.hasOwnProperty.call(userData, 'ausername')){
+        setUserType("admin")
+      }else{
+        setUserType("sijui")
+      }
+
+      if (userType == "recipient"){
+        setDescription("Hello dear recipient, we thank you for believing in us to help you achieve your dreams thrugh funding your education with the help of generous people around the country. Send enquires to helpDofur234@gmail.com. Thank you.")
+       }else if(userType == "donor"){ 
+        setDescription("Hello donor, we thank you for choosing to be part of this great community. What you give is truly appreciated. Be blessed.")
+       }else{
+        setDescription("Hello admin, your work is to make sure recipients are validated and their accounts authorised as soon as possible. This includes following up with them to confirm whether or not their details are correct, if they really need the help and help them where necessary.")
+       }
+    
+      console.log("I am the user type", userData)
+  
+
+
+    }
+
+
+    if (userType == "recipient"){
+      setDescription("Hello dear recipient, we thank you for believing in us to help you achieve your dreams thrugh funding your education with the help of generous people around the country. Send enquires to helpDofur234@gmail.com. Thank you.")
+     }else if(userType == "donor"){ 
+      setDescription("Hello donor, we thank you for choosing to be part of this great community. What you give is truly appreciated. Be blessed.")
+     }else{
+      setDescription("Hello admin, your work is to make sure recipients are validated and their accounts authorised as soon as possible. This includes following up with them to confirm whether or not their details are correct, if they really need the help and help them where necessary.")
+     }
+  
+    console.log("I am the user type brrr", userData)
+
+  },[userType, userData, description, pathname])
+
+
 
   // Cache for the rtl
   useMemo(() => {
@@ -88,12 +150,25 @@ export default function App() {
   // Setting the dir attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
+    console.log("waaaaatt")
   }, [direction]);
+
+
+
+
+  
+
+
+
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+
+
+
+    
   }, [pathname]);
 
 
@@ -134,6 +209,7 @@ export default function App() {
     </SoftBox>
   );
 
+
     return direction === "rtl" ? (
       <CacheProvider value={rtlCache}>
         <ThemeProvider theme={themeRTL}>
@@ -169,7 +245,7 @@ export default function App() {
               color={sidenavColor}
               brand={brand}
               brandName="Dofur acquisition system"
-              routes={user? routes2 : routes}
+              routes={user? routes2: routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -180,6 +256,7 @@ export default function App() {
         <Routes>
           {getRoutes(routes)}
           {getRoutes(routes2)}
+
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>

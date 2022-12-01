@@ -4,10 +4,17 @@ const Funds = require("../models/Funds")
 const Donor = require('../models/Donor');
 const Admin = require("../models/Admin");
 const Guardian = require("../models/Guardian")
+const bcrypt = require("bcrypt");
+
+
 
 //New Recipient
 router.post("/recipient", async (req, res) => {
   try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
+
+
 
     const newGuardian = new Guardian({
       gname: req.body.gname,
@@ -28,7 +35,7 @@ router.post("/recipient", async (req, res) => {
         username: req.body.username,
         address:req.body.address,
         description: req.body.description,
-        password: req.body.password,
+        password: hashedPass,
         guardianId: newGuardian._id,
         recipientFundId: newFunds._id,
         schoolAddress: req.body.schoolAddress,
@@ -60,11 +67,15 @@ router.post("/recipient", async (req, res) => {
 //New Donor
 router.post("/donor", async (req, res) => {
   try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.dpassword, salt);
+
+
     const newDonor = new Donor({
         dusername: req.body.dusername,
         demail: req.body.demail,
         dadress: req.body.dadress,
-        dpassword: req.body.dpassword
+        dpassword: hashedPass
 
     })
 
@@ -80,11 +91,15 @@ router.post("/donor", async (req, res) => {
 //New Admin
 router.post("/admin", async (req, res) => {
   try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.apassword, salt);
+
+
     const newAdmin = new Admin({
         ausername: req.body.ausername,
-        aemail: req.body.adress,
-        aposition: req.body.position,
-        apassword: req.body.apassword
+        aemail: req.body.aemail,
+        aposition: req.body.aposition,
+        apassword: hashedPass
 
     })
 
@@ -117,13 +132,12 @@ router.get("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
 
-
-
-
-
-
-    const user = await Recipient.findOne({ username: req.body.username }) || await Donor.findOne({ dusername: req.body.username }) || await Admin.findOne({ ausername: req.body.username })
+    const user = await Recipient.findOne({"address.email": req.body.address }) || await Donor.findOne({ demail: req.body.address }) || await Admin.findOne({ aemail: req.body.address })
     !user && res.status(400).json("Wrong credentials!");
+
+  
+    const validated = await bcrypt.compare(req.body.password, user.password || user.apassword || user.dpassword);
+    !validated && res.status(400).json("Wrong credentials!");
 
     res.status(200).json(user);
   } catch (err) {

@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { json } = require('body-parser')
 const Fund = require('../models/Funds')
 
 
@@ -90,20 +91,29 @@ router.get("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
       const funds = await Fund.findById(req.params.id);
+      const currentFunds = req.body
+      const fundsTotal = funds.recipientsCurrentFunds
+
+      const currentFundsAfter = currentFunds + fundsTotal
+
         try {
           const updatedFunds = await Fund.findByIdAndUpdate(
             req.params.id,
             {
-              $set: req.body,
+              $set:  req.body,
             },
             { new: true }
           );
           res.status(200).json(updatedFunds);
+          console.log("current fundsss!!", currentFunds)
         } catch (err) {
           res.status(500).json(err);
+          console.log(json(err))
       } 
+      console.log("current fundsss!!", currentFunds)
     } catch (err) {
       res.status(500).json(err);
+      console.log(json(err))
     }
   });
 

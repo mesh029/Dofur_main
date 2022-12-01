@@ -29,8 +29,7 @@ import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 import CardSingle from "./cardSingle";
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+
 
 
 //mine 
@@ -38,12 +37,6 @@ import projectsTableData from "layouts/tables/data/projectsTableData";
 import './popUp.css'
 
 const Popup =props=> {
-
-
-  const closePopUp = e => {
-    e.preventDefault();
-    props.handleClose();
-  }
 
 
 
@@ -54,21 +47,26 @@ const Popup =props=> {
       width="100%"
       height="100vh"
       top= "0"
-      left="45"
+      right="45"
+      textAlign="center"
+      
       
       >
         <SoftBox
         position="relative"
-        width="70%"
+        width="30%"
         height="auto"
         maxHeight="70vh"
         background="#fff"
         bgColor= "#fff"
         marginTop= "300px"
+        marginLeft="30%"
+        marginRight="35%"
         
         >
-            <span className="close-icon" onClick={closePopUp}></span>
+            <span className="close-icon" onClick={props.handleClose}>
 
+            </span>
             {props.content}
         </SoftBox>
 

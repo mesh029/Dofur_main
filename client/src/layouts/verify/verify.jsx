@@ -36,6 +36,8 @@ import { Search, SearchTwoTone } from "@mui/icons-material";
 //mine
 
 import { useNavigate } from "react-router";
+import SoftAvatar from "components/SoftAvatar";
+import { Grid } from "@mui/material";
 
 
 var cors = require('cors')
@@ -53,10 +55,43 @@ function Verify() {
 
   const { search } = useLocation();
   const [recipients, setRecipients] = useState([])
+  const [funds, setFunds] = useState({})
   console.log("reccccc", recipients)
   const location = useLocation();
 
-  const {data} = location.state; 
+  const[data, setData] = useState({})
+
+
+  useEffect(()=>{
+
+    if(location.state !== null){
+      setData(location.state)
+    }
+
+    console.log("I am here now as data",data)
+
+  }, [])
+
+  useEffect(()=>{
+    var recipientFunds = data?.recipientFundId
+
+    setTimeout(async ()=>{
+
+      try {
+        const res = await axios.get(`http://localhost:5000/funds/${recipientFunds}`);
+  
+        setFunds(res.data)
+
+        console.log("tumepata!!!", funds)
+
+       /**window.location.replace("/post/" + res.data._id);**/
+     } catch (err) { 
+       console.log(err)
+     }
+   
+    }, 900)},[data])
+  
+  
 
   const navigate = useNavigate()
 
@@ -71,9 +106,53 @@ function Verify() {
         <SoftBox mb={3}>
           <Card>
             <SoftBox  alignItems="center" p={3}>
-              <SoftTypography variant="h4" >General donation {data.username}</SoftTypography>
+              <SoftBox display="flex">
 
-              <SoftTypography variant="h6">Who are we who are we who are we</SoftTypography>
+                <SoftBox>
+                <Grid item mr={5}>
+            <SoftAvatar
+              alt="profile-image"
+              variant="rounded"
+              size="xl"
+              shadow="sm"
+              bgColor="info"
+            />
+          </Grid>
+                </SoftBox>
+                <SoftBox>
+                <SoftTypography variant="h2" mb={5} fontFamily="'Raleway', sans-serif">{data?.username}</SoftTypography>
+
+              <SoftTypography variant="h4"fontFamily="'Raleway', sans-serif">Target funds </SoftTypography>
+              <SoftTypography variant="h5" color="info" fontSize="35px" fontFamily="'Anton', sans-serif" mb={5}>Ksh {funds?.recipientsTargetFunds?.toLocaleString()}</SoftTypography>
+
+
+                </SoftBox>
+
+
+
+
+              </SoftBox>
+
+
+              <SoftTypography variant="h4" fontFamily="'Raleway', sans-serif">Description:</SoftTypography>
+              <SoftTypography variant="h5" fontFamily="'Raleway', sans-serif" mb={5}>{data?.description}</SoftTypography>
+
+
+              <SoftTypography variant="h4" fontFamily="'Raleway', sans-serif">School:</SoftTypography>
+              <SoftTypography variant="h5" fontFamily="'Raleway', sans-serif" mb={5}>{data?.school}</SoftTypography>
+
+              <SoftTypography variant="h4" fontFamily="'Raleway', sans-serif">School location: :</SoftTypography>
+              <SoftTypography variant="h5" fontFamily="'Raleway', sans-serif" mb={5}>{data?.schoolCity}</SoftTypography>
+              <SoftTypography variant="h4" fontFamily="'Raleway', sans-serif">Class:</SoftTypography>
+              <SoftTypography variant="h5" fontFamily="'Raleway', sans-serif" mb={5}>{data?.userClass}</SoftTypography>
+                      <SoftTypography variant="h4" fontFamily="'Raleway', sans-serif">Email:</SoftTypography>
+              <SoftTypography variant="h5" mb={5} fontFamily="'Raleway', sans-serif">{data?.address?.email}</SoftTypography>
+
+              <SoftTypography variant="h4" fontFamily="'Raleway', sans-serif" fontStyle="bold">Home address:</SoftTypography>
+              <SoftTypography variant="h5" fontFamily="'Raleway', sans-serif" mb={5}>{data.address?.building}</SoftTypography>
+
+
+
 
         <SoftBox mt={2}>
           <SoftButton
@@ -93,30 +172,6 @@ function Verify() {
         </SoftBox>
             </SoftBox>
           </Card>
-
-
-          <SoftBox
-                    my={2}
-          >
-
-          <Card
-          marginTop="20px"
-          >
-         <SoftTypography variant= "h4" my={1} mx={4}>Browse recipients</SoftTypography>
-
-            
-          <SoftTypography variant= "h6" my={1} mx={4}>Filters here</SoftTypography>
-
-
-          <SoftBox
-
-        >
-            </SoftBox>
-
-          </Card>
-
-
-          </SoftBox>
          
 
 

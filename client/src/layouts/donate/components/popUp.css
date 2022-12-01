@@ -1,5 +1,5 @@
 .close-icon {
-    content: 'x';
+    content: 'X';
     cursor: pointer;
     position: fixed;
     right: calc(15% - 30px);

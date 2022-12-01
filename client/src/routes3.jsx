@@ -23,7 +23,7 @@ import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 
 
-  const routes2 = [
+  const routes3 = [
     {
       type: "collapse",
       name: "Home",
@@ -54,23 +54,14 @@ import Cube from "examples/Icons/Cube";
     },
 
     {
-      type: "collap",
-      name: "Verify",
-      key: "verify",
-      route: "/verify",
-      icon: <SpaceShip size="12px" />,
-      component: <Verify />,
-      noCollapse: true,
-    },
-    {
-      type: "collap",
-      name: "Verify",
-      key: "verify",
-      route: "/donate",
-      icon: <SpaceShip size="12px" />,
-      component: <Donate />,
-      noCollapse: true,
-    },
+        type: "collapse",
+        name: "Donate",
+        key: "donate",
+        route: "/donate",
+        icon: <CustomerSupport size="12px" />,
+        component: <Donate />,
+        noCollapse: true,
+      },
 
   ];
   
@@ -113,4 +104,4 @@ import Cube from "examples/Icons/Cube";
 
    
 
-export default routes2;
+export default routes3;

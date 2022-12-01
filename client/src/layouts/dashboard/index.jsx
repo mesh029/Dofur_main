@@ -48,12 +48,20 @@ import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData"
 //My imports
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSoftUIController} from "context";
+
 
 
 function Dashboard() {
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
   const [fundsTotal, setFundTotal] = useState({})
+  const [recipients, setRecipients] = useState([])
+  const [donors, setDonors] = useState([])
+  const [controller, dispatch] = useSoftUIController();
+  const { user } = controller;
+
+
 
 
 
@@ -65,12 +73,30 @@ function Dashboard() {
       setFundTotal(res.data);
     };
 
+    const fetchRecipientsTotal = async()=>{
+      const res = await axios.get(`http://localhost:5000/recipients/`);
+      setRecipients(res.data)
+
+
+    }
+
+
+    const fetchDonors = async()=>{
+      const res = await axios.get(`http://localhost:5000/donors/`);
+      setDonors(res.data)
+
+    }
+
+
+
+
 
 
     fetchFundsTotal()
+    fetchRecipientsTotal()
+    fetchDonors()
 
-
-  }, [])
+  },[])
 
 
 
@@ -80,7 +106,7 @@ function Dashboard() {
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Grid container>
-            <Carousel totalValue = {fundsTotal.subTotal}/>
+            <Carousel totalValue = {fundsTotal.subTotal} totalRecipients ={recipients.length} totalDonors={donors.length}/>
           </Grid>
         </SoftBox>
         <SoftBox mb={3}>
@@ -89,54 +115,17 @@ function Dashboard() {
               <BuildByDevelopers />
             </Grid>
             <Grid item xs={12} lg={5}>
-              <WorkWithTheRockets />
+              {user?(
+                 <WorkWithTheRockets contentTitle={"Dear user"} contentDescription={"We are proud to have you as a member of this new community that seeks to foster education irregardless of ones financial status."} route={"Read more about dofur and wcdi"} routePath={"/about"} />
+
+
+              ):(
+                <WorkWithTheRockets contentTitle={"Join us"} contentDescription={"Become part of this great community that seeks to educate a new child every day."} route ={"Join us"} routePath={"/authentication/sign-up"} />
+
+              )}
             </Grid>
           </Grid>
         </SoftBox>
-        <SoftBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={5}>
-              <ReportsBarChart
-                title="active users"
-                description={
-                  <>
-                    (<strong>+23%</strong>) than last week
-                  </>
-                }
-                chart={chart}
-                items={items}
-              />
-            </Grid>
-            <Grid item xs={12} lg={7}>
-              <GradientLineChart
-                title="Sales Overview"
-                description={
-                  <SoftBox display="flex" alignItems="center">
-                    <SoftBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>
-                      <Icon className="font-bold">arrow_upward</Icon>
-                    </SoftBox>
-                    <SoftTypography variant="button" color="text" fontWeight="medium">
-                      4% more{" "}
-                      <SoftTypography variant="button" color="text" fontWeight="regular">
-                        in 2021
-                      </SoftTypography>
-                    </SoftTypography>
-                  </SoftBox>
-                }
-                height="20.25rem"
-                chart={gradientLineChartData}
-              />
-            </Grid>
-          </Grid>
-        </SoftBox>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={8}>
-            <Projects />
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <OrderOverview />
-          </Grid>
-        </Grid>
       </SoftBox>
       <Footer />
     </DashboardLayout>

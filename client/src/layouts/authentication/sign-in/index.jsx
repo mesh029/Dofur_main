@@ -57,9 +57,8 @@ function SignIn() {
   const userRef = useRef()
   const passwordRef = useRef()
   const [rememberMe, setRememberMe] = useState(true);
-  const [username, setUserName] = useState("");
-  const [desc, setDesc] = useState("");
   const [address, setAddress] = useState("");
+  const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
 
@@ -71,16 +70,6 @@ function SignIn() {
 
   const [error, setError] = useState(false);
 
-  const handleLogout = () =>{
-
-    dispatch({ type: "LOGIN_START" });
-
-    console.log( user)
-  }
-
-
-
-  var cors = require('cors')
 
 
 
@@ -93,7 +82,8 @@ function SignIn() {
 
     try {
       const res = await axios.post("http://localhost:5000/auth/login",{
-        username: address,
+        address,
+        password
       });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
@@ -126,7 +116,7 @@ function SignIn() {
               Email
             </SoftTypography>
           </SoftBox>
-          <SoftInput placeholder="Email" onChange={e=>setAddress(e.target.value)} ref={userRef}/>
+          <SoftInput placeholder="Email" type="email" onChange={e=>setAddress(e.target.value)} ref={userRef}/>
         </SoftBox>
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
@@ -134,7 +124,7 @@ function SignIn() {
               Password
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="text" placeholder="Password" autoFocus = {true} onChange={e=>setUserName(e.target.value)} ref={passwordRef} />
+          <SoftInput type="text" placeholder="Password" autoFocus = {true} onChange={e=>setPassword(e.target.value)} ref={passwordRef} />
         </SoftBox>
         <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -155,11 +145,28 @@ function SignIn() {
             onClick={handleSubmit}
             sx={{ cursor: "pointer", userSelect: "none" }}
           >
-            &nbsp;&nbsp;Submi
+            &nbsp;&nbsp;Submit
           </SoftTypography>
             
           </SoftButton>
         </SoftBox>
+        {error == true?(
+           <SoftBox mt={4} mb={1} widh= "100%" textAlign="center">
+           <SoftTypography
+             variant="button"
+             fontWeight="regular"
+             sx={{ color: "red", userSelect: "none" }}
+           >
+             &nbsp;&nbsp;Wrong credentials! Try again.
+           </SoftTypography>
+         </SoftBox>
+
+        ):(
+          <SoftBox>
+
+        </SoftBox>
+        )}
+       
         <SoftBox mt={3} textAlign="center">
           <SoftTypography variant="button" color="text" fontWeight="regular">
             Don&apos;t have an account?{" "}

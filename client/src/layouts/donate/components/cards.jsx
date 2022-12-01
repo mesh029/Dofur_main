@@ -31,26 +31,34 @@ import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 import CardSingle from "./cardSingle";
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
 
 import Popup from "./Popup"
 import card from "assets/theme/components/card";
 import { indexof } from "stylis";
 import axios from "axios";
+import SoftInput from "components/SoftInput";
+import { TextField } from "@mui/material";
+
 
 
 
 function Cards({cards}) {
   const [isOpen, setIsOpen] = useState(false);
   const [indexa, setIndexa] = useState(0)
-  const [recipientsCurrentFunds, setCurrentRecipientFunds]=useState(indexa)
+  const [recipientsCurrentFunds, setCurrentRecipientFunds]=useState(0)
 
+  const [funds, setFunds] = useState()
   const togglePopup = (a) => {
     setIsOpen(!isOpen)
     setIndexa(cards.indexOf(a))
     console.log(recipientsCurrentFunds)
   }
+
+  const togglePopup2 = ()=> {
+    setIsOpen(!isOpen)
+
+  }
+
 
 
 
@@ -58,12 +66,34 @@ function Cards({cards}) {
 
   const fetchedRecipient = cards[indexa]
 
+  useEffect(()=>{
+      try {
+        const fetchFunds = async ()=>{
+          const res = await axios.get( `http://localhost:5000/funds/${fetchedRecipient.recipientFundId}`)
+          setFunds(res.data)
+          console.log("Funds fetched", funds)
+        }
+        fetchFunds()
+        
+      } catch (error) {
+
+        console.log(error)
+         
+      }
+      setCurrentRecipientFunds(6000)
+
+
+      
+
+  }, [isOpen])
+
 
   const handleUpdate = async () => {
-    console.log(recipientsCurrentFunds)
     try {
+      
+     
       await axios.put(`http://localhost:5000/funds/${fetchedRecipient.recipientFundId}`, {
-        recipientsCurrentFunds
+        recipientsCurrentFunds : parseInt(recipientsCurrentFunds) + funds?.recipientsCurrentFunds
       });
     } catch (err) {
       console.log(err)
@@ -90,24 +120,30 @@ function Cards({cards}) {
 {isOpen && <Popup
       content={<>
 
-        <b>{fetchedRecipient.username}</b>
-        <p>{fetchedRecipient.description}</p>
-
         <form action="http://localhost:3000/donate" method="GET">
-        <input
+          <h5>Donate to {fetchedRecipient.username}</h5>
+
+            <label for="html">Enter amount  </label>
+
+            <SoftInput
             type="text"
             aria-label="enter amount"
             className="singlePostTitleInput"
             autoFocus
             onChange={(e) => setCurrentRecipientFunds(e.target.value)}
+            textAlign="center"
+            Label="hamnani"
             
           />
 
-          <SoftButton
+
+
+          <SoftButton mt={10} color="info" 
+
           onClick={handleUpdate}
           type="submit"
           >
-            boom
+            Donate
           </SoftButton>
 
 
@@ -119,7 +155,7 @@ function Cards({cards}) {
 
       </>}
 
-      handleClose={togglePopup}
+      handleClose={togglePopup2}
     />}
 
       </SoftBox>

@@ -29,12 +29,19 @@ import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+import authorsTableData from "layouts/about/data/authorsTableData";
+import projectsTableData from "layouts/about/data/projectsTableData";
 
-function Tables() {
+import { useSoftUIController} from "context";
+
+
+function About() {
   const { columns, rows } = authorsTableData;
   const { columns: prCols, rows: prRows } = projectsTableData;
+  const [controller, dispatch] = useSoftUIController();
+  const { user } = controller;
+
+
 
   return (
     <DashboardLayout>
@@ -45,22 +52,30 @@ function Tables() {
             <SoftBox  alignItems="center" p={3}>
               <SoftTypography variant="h4" >WCDI</SoftTypography>
 
-              <SoftTypography variant="h6">Who are we who are we who are we</SoftTypography>
+              <SoftTypography variant="h6">WCDI was founded to help the needy. This, among many others, includes being able to help children who cannot go to school following financial reasons. We take pride in the fact that alot of people have been able to benefit from the steps WCDI has taken as a foundation. In partnership with other charity agencies WCDI also feeds the hungry and does charity funds frequently. With Dofur, which is an acquisition system, WCDI is able to get more recipients, and donors hence more people to help and more funds. Dofur is sleek, easy to use and does the hard work for us which is finding as many recipients as possible. Help us today with our course for every one of us needs the other at one point in time.</SoftTypography>
 
-        <SoftBox mt={2}>
-          <SoftButton
-            component="a"
-            href="/authentication/sign-up"
-            rel="noreferrer"
-            variant="gradient"
-            color='info'
-            fullWidth
-          >
-              {/*target="_blank" property for softbutton that opens link in new page*/}
+{user?(
 
-            Become a recipient or donate today
-          </SoftButton>
-        </SoftBox>
+<SoftBox mt={2}>
+
+</SoftBox>
+):(
+<SoftBox mt={2}>
+<SoftButton
+  component="a"
+  href="/authentication/sign-up"
+  rel="noreferrer"
+  variant="gradient"
+  color='info'
+  fullWidth
+>
+    {/*target="_blank" property for softbutton that opens link in new page*/}
+
+  Become a recipient or donate today
+</SoftButton>
+</SoftBox>
+)}
+
             </SoftBox>
           </Card>
         </SoftBox>
@@ -70,7 +85,7 @@ function Tables() {
 <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
   <SoftTypography variant="h6">Projects table</SoftTypography>
 </SoftBox>
-<SoftBox
+<SoftBoxkey
   sx={{
     "& .MuiTableRow-root:not(:last-child)": {
       "& td": {
@@ -92,9 +107,9 @@ function Tables() {
   );
 }
 
-Tables.defaultProps = {
+About.defaultProps = {
   color: "info",
   brand: "",
 };
 
-export default Tables;
+export default About;

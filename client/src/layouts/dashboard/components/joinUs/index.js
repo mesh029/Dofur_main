@@ -24,7 +24,7 @@ import SoftTypography from "components/SoftTypography";
 // Images
 import ivancik from "assets/images/ivancik.jpg";
 
-function WorkWithTheRockets() {
+const WorkWithTheRockets=props=> {
   return (
     <Card sx={{ height: "100%" }}>
       <SoftBox position="relative" height="100%" p={2}>
@@ -38,25 +38,25 @@ function WorkWithTheRockets() {
           sx={{
             backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
               `${linearGradient(
-                rgba(gradients.dark.main, 0.8),
-                rgba(gradients.dark.state, 0.8)
-              )}, url(${ivancik})`,
-            backgroundSize: "cover",
+                rgba(gradients.dark.main, 0.4),
+                rgba(gradients.dark.state, 0.4)
+              )}, url(https://dunderid.sirv.com/child_writing_on_board.jpg)`,
+            backgroundSize: "cover", backgroundRepeat: "no-repeat",
           }}
         >
           <SoftBox mb={3} pt={1}>
             <SoftTypography variant="h5" color="white" fontWeight="bold">
-              Join us
+              {props.contentTitle}
             </SoftTypography>
           </SoftBox>
           <SoftBox mb={2}>
             <SoftTypography variant="body2" color="white">
-              Become part of this great community that seeks to educate a new child every day.
+              {props.contentDescription}
             </SoftTypography>
           </SoftBox>
           <SoftTypography
             component="a"
-            href="/tables"
+            href={props.routePath}
             variant="button"
             color="white"
             fontWeight="medium"
@@ -78,7 +78,7 @@ function WorkWithTheRockets() {
               },
             }}
           >
-            Read More
+            {props.route}
             <Icon sx={{ fontWeight: "bold" }}>arrow_forward</Icon>
           </SoftTypography>
         </SoftBox>

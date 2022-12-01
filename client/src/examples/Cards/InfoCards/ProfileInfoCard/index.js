@@ -66,7 +66,10 @@ function ProfileInfoCard({ title, description, info, social, action }) {
     </SoftBox>
   ));
 
+
+
   // Render the card social media icons
+  /*
   const renderSocial = social.map(({ link, icon, color }) => (
     <SoftBox
       key={color}
@@ -82,7 +85,7 @@ function ProfileInfoCard({ title, description, info, social, action }) {
     >
       {icon}
     </SoftBox>
-  ));
+  ));*/
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -109,9 +112,8 @@ function ProfileInfoCard({ title, description, info, social, action }) {
           {renderItems}
           <SoftBox display="flex" py={1} pr={2}>
             <SoftTypography variant="button" fontWeight="bold" textTransform="capitalize">
-              social: &nbsp;
+             
             </SoftTypography>
-            {renderSocial}
           </SoftBox>
         </SoftBox>
       </SoftBox>

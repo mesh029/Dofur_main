@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const Recipient = require('../models/Recipient')
-const { post } = require('./auth')
+const Donor = require('../models/Donor')
 
 
 
@@ -39,15 +38,15 @@ router.delete("/:id", async(req, res)=>{
 
 
 
-//Get recipient
+//Get donors
 
 router.get("/", async(req, res)=>{
 
     try{
-        let recipients
+        let donors
 
-        recipients = await Recipient.find({verified: true})
-        res.status(200).json(recipients)
+        donors = await Donor.find()
+        res.status(200).json(donors)
         }
         catch(err){
             res.status(500).json(err)
@@ -58,6 +57,7 @@ router.get("/", async(req, res)=>{
 //Get unverified
 
 router.get("/getunverified", async(req, res)=>{
+    const label = req.query.verified;
 
     try{
         let recipients

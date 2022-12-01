@@ -72,7 +72,7 @@ function ProfilesList({ title, profiles, handleVerify, userType }) {
   var renderProfiles
 
   if(userType == "recipient"){
-    renderProfiles =profiles.map(({ username, dob, description, schoolCity, _id, verified}) => 
+    renderProfiles =profiles.map(({ username, dob, description, schoolCity, _id, verified, address, userClass, school}) => 
    (
     
     
@@ -106,8 +106,10 @@ function ProfilesList({ title, profiles, handleVerify, userType }) {
             rel="noreferrer"
             variant="text"
             color="info"
-            onClick={()=>navigate('/verify', { state: {
-              data: {username, dob, description, schoolCity, _id}
+            onClick={()=>navigate('/verify', { state: { data:{
+              username, dob, description, schoolCity, _id, userClass, school, address
+
+            }
               } })}
           >
             VERIFY
@@ -166,7 +168,7 @@ handleClose={togglePopup}
   ));
 
   }else if(userType == "donor"){
-   renderProfiles =profiles.map(({ username, dob, description, schoolCity, _id, verified}) => 
+   renderProfiles =profiles.map(({ username, dob, description, schoolCity, _id, verified, recipientFundId}) => 
    (
      
     
@@ -200,7 +202,7 @@ handleClose={togglePopup}
             variant="text"
             color="info"
             onClick={()=>navigate('/verify', { state: {
-              data: {username, dob, description, schoolCity, _id}
+              data: {username, dob, description, schoolCity, _id, recipientFundId}
               } })}
           >
             VERIFY
@@ -260,14 +262,14 @@ handleClose={togglePopup}
 
   }else{
 
-  renderProfiles =profiles.map(({ username, dob, description, schoolCity, _id, verified}) => 
+  renderProfiles =profiles.map(({ username, dob, description, schoolCity, _id, verified, school, address, userClass, recipientFundId}) => 
    (
     
     
     <SoftBox key={username} component="li" display="flex" alignItems="center" py={1} mb={1}>
 
       <SoftBox mr={2}>
-        <SoftAvatar alt="something here" variant="rounded" shadow="md" />
+        <SoftAvatar alt="something here" variant="rounded" shadow="md" bgColor="info"/>
       </SoftBox>
       <SoftBox
         display="flex"
@@ -294,61 +296,14 @@ handleClose={togglePopup}
             rel="noreferrer"
             variant="text"
             color="info"
-            onClick={()=>navigate('/verify', { state: {
-              data: {username, dob, description, schoolCity, _id}
-              } })}
+            onClick={()=>navigate('/verify', { state: 
+              {username, dob, description, schoolCity, _id, school, address, userClass, recipientFundId}
+              })}
           >
             VERIFY
           </SoftButton>
         )}
       </SoftBox>
-
-
-      {isOpen && <Popup
-      content={<>
-
-      <p>{username}</p>
-
-      <SoftButton
-            component="a"
-            target="_blank"
-            rel="noreferrer"
-            variant="text"
-            color="info"
-            onClick={()=> setIsOpen(!isOpen)}
-          >
-            VERIFY
-          </SoftButton>
-      
-
-        <form action="http://localhost:3000/donate" method="GET">
-        <input
-            type="text"
-            aria-label="enter amount"
-            className="singlePostTitleInput"
-            autoFocus
-            
-          />
-
-          <SoftButton
-          type="submit"
-          >
-            boom
-          </SoftButton>
-
-
-        </form>
-
-
-
-          
-
-      </>}
-
-handleClose={togglePopup}
-
-
-  />}
 
     </SoftBox>
   ));

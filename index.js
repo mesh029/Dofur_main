@@ -11,6 +11,7 @@ const createError = require('http-errors');
 const authRoute = require("./routes/auth");
 const recipientRoute = require("./routes/recipients")
 const fundsRoute = require('./routes/funds')
+const donorsRoute = require('./routes/donors')
 
 
 
@@ -36,6 +37,7 @@ app.use(cors());
 app.use("/auth", authRoute)
 app.use("/recipients", recipientRoute)
 app.use("/funds", fundsRoute)
+app.use("/donors", donorsRoute)
 
 
 const port = process.env.PORT || 5000;

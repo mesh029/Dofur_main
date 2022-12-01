@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 
 // Images
 import ivancik from "assets/images/ivancik.jpg";
+import { Repeat } from "@mui/icons-material";
 
 
 const WorkWithTheRockets= props => {
@@ -34,7 +35,7 @@ const WorkWithTheRockets= props => {
 //carousel
 const {info, secondary } = colors;
 
-const data = ["1", "2", "3", "4"];
+const data = ["1", "2", "3", "4", "5", "6"];
 const [currentIndex, setCurrentIndex] = useState(0);
 
 
@@ -44,6 +45,7 @@ const carouselInfiniteScroll = () => {
     return setCurrentIndex(0);
   }
   return setCurrentIndex(currentIndex + 1);
+  
 };
 
 
@@ -56,6 +58,8 @@ useEffect(() => {
   //clean up function
   return () => clearInterval(interval);
 });
+
+
 
 
   return (
@@ -73,10 +77,10 @@ useEffect(() => {
           sx={{
             backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
               `${linearGradient(
-                rgba(gradients.dark.main, 0.8),
-                rgba(gradients.dark.state, 0.8)
-              )}, url(${ivancik})`,
-            backgroundSize: "cover",
+                rgba(gradients.dark.main, 0.4),
+                rgba(gradients.dark.state, 0.4)
+              )}, url(https://dunderid.sirv.com/schhool%2C%20board%2C%20study.jpg)`,
+            backgroundSize: "cover", backgroundRepeat: "no-repeat",
           }}
           
         >
@@ -86,28 +90,38 @@ useEffect(() => {
                var car_undertext;
      
                if (index === 0) {
-                 car_text = `${props.totalValue}`
+                 car_text = "DOFUR"
                  car_undertext = 
-                   "Total funds available in our freakin bank account";
-               } else if (index === 1) {
-                 car_text = "DOFUR";
+                   "This is a web application written foc WCDI to help in donor, recipient and funds acquisition";
+               } else if (index === 2) {
+                 car_text = props.totalValue?.toLocaleString() || ". . .";
                  car_undertext =
-                   "Hello world hello world hello world hello world hello world hello world";
-               } else if(index === 2){
-                car_text = "WORLD BANK";
+                   "Total Number of funds in WCDI's account";
+               } else if(index === 3){
+                var newValue = props.totalValue/100
+                car_text = newValue?.toLocaleString() + " Rs" || "...";
                 car_undertext =
-                  "A world without peace is no world";
+                  "Total Value of all funds represented as R's, Dofur local currency standing for reasons";
                } 
-               
-               else if (index === 3){
-                 car_text = "MANGAS";
-                 car_undertext =
-                   "Everyone misses Takeoff";
-               }
-               else{
-                car_text = "COMICS";
+               else if(index === 1){
+                car_text = "WCDI"
                 car_undertext =
-                  "we read them but forget not everyone is told not to";
+                  "A charitable organization that seeks to educate children who cannot go to school for financial reasons";
+               } 
+               else if (index === 4){
+                 car_text = props.totalDonors
+                 car_undertext =
+                   "Total Number of donors";
+               }
+               else if (index === 5){
+                car_text = props.totalRecipients
+                car_undertext =
+                  "Total Number of recipients, were growing! And fast";
+              }
+               else{
+                car_text = "DONORS";
+                car_undertext =
+                  "Total Number of Donors";
                }
 
           return(
@@ -127,12 +141,12 @@ useEffect(() => {
 
 
               <SoftBox pt={1} mb={0.5}>
-                <SoftTypography variant="body2" color="text" fontWeight="medium">
+                <SoftTypography variant="body2" color="white" fontWeight="400" fontFamily="'Anton', sans-serif" fontSize="100px">
                   {car_text}
                 </SoftTypography>
               </SoftBox>
               <SoftBox pt={1} mb={0.5}>
-                <SoftTypography variant="body2" color="text" fontWeight="medium">
+                <SoftTypography variant="body2" color="white" fontWeight="400" fontFamily="'Raleway', sans-serif" fontSize="20px">
                   {car_undertext}
                 </SoftTypography>
               </SoftBox>

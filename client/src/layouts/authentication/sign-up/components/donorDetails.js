@@ -59,7 +59,7 @@ function DonorDetails({ handleStep, values, handleChange, handleSubmit }) {
 
       <SoftBox pt={2} px={3} >
       <SoftTypography variant="h3" fontWeight="small">
-        Donor details!!
+        Donor details
       </SoftTypography>
     </SoftBox>
       

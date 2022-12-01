@@ -19,7 +19,7 @@ import PropTypes from 'prop-types'
 
 import axios from "axios";
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -49,12 +49,15 @@ import AdminDetails from "./components/adminDetails";
 import DonorDetails from "./components/donorDetails";
 // Images
 import curved6 from "assets/images/curved-images/curved14.jpg";
-import { Input } from "@mui/material";
+
+
 
 
 
 function SignUp() {
   const[step, setStep] = useState(1)
+  const navigate = useNavigate()
+  const[err, setErr] = useState(false)
 
 
 
@@ -123,10 +126,14 @@ function SignUp() {
       
      console.log("successful!", newDetails)
      console.log(formData)
+     setErr(false)
+     navigate("/authentication/sign-in")
+     
 
      /**window.location.replace("/post/" + res.data._id);**/
    } catch (err) { 
      console.log(err)
+     setErr(true)
    }
   }
 
@@ -143,8 +150,8 @@ function SignUp() {
       await axios.post("http://localhost:5000/auth/donor", newDetails);
       
      console.log("successful!", newDetails)
+     navigate("/authentication/sign-in")
      console.log(formData)
-
      /**window.location.replace("/post/" + res.data._id);**/
    } catch (err) { 
      console.log(err)
@@ -188,12 +195,18 @@ function SignUp() {
 
     try {
        await axios.post("http://localhost:5000/auth/recipient", newDetails);
+       navigate("/authentication/sign-in")
        
       console.log("successful!", newDetails)
+      setErr(false)
+
+      
 
       /**window.location.replace("/post/" + res.data._id);**/
     } catch (err) { 
       console.log(err)
+
+      setErr(true)
     }
   };
 
@@ -268,7 +281,7 @@ function SignUp() {
         return (
             <BasicLayout
               title="Welcome!"
-              description="Use these awesome forms to login or create new account in your project for free."
+              description="Sig up for a Dofur account and get to help thousands of children around the country"
               image={curved6}
             >
         
@@ -278,6 +291,8 @@ function SignUp() {
             values = {values}
             handleStep={handleStep}
             setRecDate={setRecDate}
+            error = {err}
+
 
             />
             </BasicLayout>
@@ -293,6 +308,7 @@ function SignUp() {
           nextStep={nextStep}
           prevStep={prevStep}
           handleChange={handleChange}
+
   
           />
                       </BasicLayout>
@@ -310,6 +326,7 @@ function SignUp() {
             prevStep={prevStep}
             handleSubmit= {handleSubmit}
             handleChange = {handleChange}
+            error = {err}
             />
                         </BasicLayout>
 
@@ -327,6 +344,7 @@ function SignUp() {
             handleSubmit= {handleSubmitD}
             handleChange = {handleChange}
             handleStep={handleStep}
+
             />
                         </BasicLayout>
 
@@ -346,6 +364,8 @@ function SignUp() {
             handleSubmit= {handleSubmitA}
             handleChange = {handleChange}
             handleStep = {handleStep}
+            error = {err}
+
             />
                         </BasicLayout>
 

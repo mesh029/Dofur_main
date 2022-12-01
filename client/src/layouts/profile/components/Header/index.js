@@ -103,11 +103,11 @@ const Header = props => {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <SoftAvatar
-              src={burceMars}
               alt="profile-image"
               variant="rounded"
               size="xl"
               shadow="sm"
+              bgColor="info"
             />
           </Grid>
           <Grid item>
@@ -116,7 +116,7 @@ const Header = props => {
                 {props.username}
               </SoftTypography>
               <SoftTypography variant="button" color="text" fontWeight="medium">
-                Dofur donor
+                Dofur {props.userType}
               </SoftTypography>
             </SoftBox>
           </Grid>

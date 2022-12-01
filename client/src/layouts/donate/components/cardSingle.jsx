@@ -34,7 +34,8 @@ import SoftButton from "components/SoftButton";
 import { useEffect, useState } from "react";
 import Popup from "./Popup"
 import axios from "axios"
-
+import SoftAvatar from "components/SoftAvatar";
+import { Grid } from "@mui/material";
 
 library.add(faUser, faPersonDress);
 
@@ -48,6 +49,10 @@ function CardSingle({card, popup}) {
   const [isOpen, setIsOpen] = useState(false);
   const [funds, setFund] = useState({})
   const [fundsTotal, setFundTotal] = useState({})
+  const[fundsTarget, setFundsTarget] = useState()
+  const[cash, setCash] = useState()
+  const[cashTarget, setCashTarget] = useState()
+  
 
 
 
@@ -63,6 +68,8 @@ function CardSingle({card, popup}) {
       var age = Math.abs(year-1970); 
   
     setCardAge(age)
+
+
   
     }
 
@@ -77,6 +84,13 @@ function CardSingle({card, popup}) {
       setFundTotal(res.data);
     };
 
+
+
+
+
+
+
+
     fetchFunds()
     fetchFundsTotal()
 
@@ -84,6 +98,21 @@ function CardSingle({card, popup}) {
 
 
   }, [])
+
+
+  useEffect(()=>{
+    const calculateCash= () =>{
+      if(funds){
+        setCash(funds.recipientsCurrentFunds)
+        setCashTarget(funds.recipientsTargetFunds)
+       
+     }
+
+    }
+
+    calculateCash()
+
+  },[funds])
 
 
 
@@ -106,7 +135,7 @@ function CardSingle({card, popup}) {
   
           <SoftBox
           flex="1 0 30%"
-          height="400px"
+          height="450px"
           minWidth="250px"
           mx={3}
           my={3}
@@ -116,22 +145,31 @@ function CardSingle({card, popup}) {
               >
             <SoftBox  alignItems="center" height= "100%" width="100%">
               <SoftBox width="100%" height="50%"display="flex">
-                <SoftBox width="30%" alignItems= "center" p={4} ><FontAwesomeIcon color="yellow" fontSize={100} icon="fa-solid fa-person-dress" /></SoftBox>
+                <SoftBox width="auto" alignItems= "center" p={4} >
+                <Grid item>
+            <SoftAvatar
+              alt="profile-image"
+              variant="rounded"
+              size="xl"
+              shadow="sm"
+              bgColor="info"
+            />
+          </Grid>
+                </SoftBox>
                 <SoftBox width="70%" >
                   <SoftBox  px={2} py={1} width="100%" height="100%" overflow="hidden">
                     <SoftTypography variant="h6">Name: {card.username} </SoftTypography>
                     <SoftTypography variant="h6">Age: {cardAge} </SoftTypography>
-                    <SoftTypography variant="h6">School: </SoftTypography>
+                    <SoftTypography variant="h6">School: {card.school} </SoftTypography>
                     <SoftTypography variant="h6">Class: {card.userClass} </SoftTypography>
-                    <SoftTypography variant="h6">Current Funds:{funds.recipientsCurrentFunds} </SoftTypography>
-                    <SoftTypography variant="h6">Target Funds: {funds.recipientsTargetFunds}</SoftTypography>
-                    <SoftTypography variant="h6">Deficit: {fundsTotal.subTotal}  </SoftTypography>
+                    <SoftTypography variant="h6">Current Funds: Ksh {cash?.toLocaleString()} </SoftTypography>
+                    <SoftTypography variant="h6">Target Funds: Ksh {cashTarget?.toLocaleString()} </SoftTypography>
                   </SoftBox>
                 </SoftBox>
               </SoftBox>
-              <SoftBox width="100%" height="35%" p={0.5}>
-                <SoftTypography variant="h6">
-                  The boys name is a Boy...A very hard working Boy from Boy City Boy Province Boy location to become a Boy Doctor with Boy instincts
+              <SoftBox width="100%" height="35%" p={3}>
+                <SoftTypography variant="h6" fontFamily="'Raleway', sans-serif">
+                  {card.description}
                 </SoftTypography>
               </SoftBox>
 
@@ -146,6 +184,7 @@ function CardSingle({card, popup}) {
                 height="50px"
                 onClick={popup}
                 display="none"
+                color="info"
                 >
                   <SoftTypography variant="h6">Donate</SoftTypography>
                 </SoftButton>
